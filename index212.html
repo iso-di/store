@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>АЙФОША & ЯБКУПИВ | Космический помощник</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6e00ff;
+      --secondary: #ff00aa;
+      --dark: #0f0f1a;
+      --light: #f0f0ff;
+      --accent: #00ffcc;
+      --glass: rgba(255, 255, 255, 0.1);
+      --success: #00ff88;
+      --warning: #ffaa00;
+      --danger: #ff3860;
+      --info: #00aaff;
+    }
+
+    /* Общие стили */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--dark), #1a1a2e);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Анимированный фон */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: var(--opacity); }
+    }
+
+    /* Хедер в стиле космического корабля */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--primary);
+      box-shadow: 0 0 20px rgba(110, 0, 255, 0.3);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(110, 0, 255, 0.1), transparent);
+      pointer-events: none;
+    }
+
+    .header .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(110, 0, 255, 0.3);
+      letter-spacing: 2px;
+    }
+
+    .menu-button {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: var(--light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 10px;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-button:hover {
+      background: var(--glass);
+      box-shadow: 0 0 10px rgba(110, 0, 255, 0.5);
+      transform: rotate(90deg);
+    }
+
+    .menu-button::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .menu-button:hover::after {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 80px;
+      right: 30px;
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      overflow: hidden;
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      min-width: 250px;
+    }
+
+    .menu-dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 20px;
+      color: var(--light);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-dropdown a:hover {
+      background: rgba(110, 0, 255, 0.2);
+      padding-left: 25px;
+    }
+
+    .menu-dropdown a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .menu-dropdown a:hover::before {
+      transform: translateX(0);
+    }
+
+    .menu-dropdown a i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    /* Страницы */
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Форма в стиле голограммы */
+    .form-container, .info-container {
+      background: var(--glass);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-container:hover, .info-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-container::before, .info-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent,
+        transparent,
+        transparent,
+        rgba(110, 0, 255, 0.1),
+        transparent,
+        transparent,
+        transparent
+      );
+      transform: rotate(30deg);
+      animation: hologram 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes hologram {
+      0% { transform: rotate(30deg) translate(-10%, -10%); }
+      100% { transform: rotate(30deg) translate(10%, 10%); }
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+    }
+
+    h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      color: var(--light);
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    /* Элементы формы */
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 15px 20px;
+      margin-bottom: 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--light);
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 20px;
+    }
+
+    select:focus, input[type="number"]:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    select::placeholder, input[type="number"]::placeholder, input[type="text"]::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Группы кнопок */
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .button-group button {
+      flex: 1;
+      min-width: 120px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--light);
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+    .button-group button:hover {
+      background: rgba(110, 0, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(110, 0, 255, 0.3);
+    }
+
+    .button-group button.active {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 20px rgba(110, 0, 255, 0.5);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .button-group button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .button-group button:hover::after {
+      transform: translateX(100%);
+    }
+
+    /* Результаты */
+    .result-display, .result {
+      margin-top: 30px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      text-align: center;
+      font-size: 18px;
+      color: var(--light);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .result-display::before, .result::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 255, 204, 0.05) 0%,
+        rgba(0, 255, 204, 0) 20%,
+        rgba(0, 255, 204, 0) 80%,
+        rgba(0, 255, 204, 0.05) 100%
+      );
+      pointer-events: none;
+    }
+
+    .result-display p, .result p {
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .total-price {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    }
+
+    /* Таблицы */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th {
+      background: rgba(110, 0, 255, 0.2);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    tr:hover {
+      background: rgba(110, 0, 255, 0.1);
+    }
+
+    /* Списки */
+    ol, ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Скрытые элементы */
+    .hidden {
+      display: none;
+    }
+
+    /* Анимации */
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Цветовые классы */
+    .success { color: var(--success); }
+    .warning { color: var(--warning); }
+    .danger { color: var(--danger); }
+    .info { color: var(--info); }
+
+    /* Предупреждения */
+    .warning {
+      background: rgba(255, 170, 0, 0.1);
+      border-left: 4px solid var(--warning);
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0;
+    }
+
+    /* Центрирование */
+    center {
+      display: block;
+      text-align: center;
+    }
+
+    /* Разделители */
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(110, 0, 255, 0.5), transparent);
+      margin: 30px 0;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px;
+      }
+      
+      .container {
+        margin: 20px auto;
+        padding: 15px;
+      }
+      
+      .form-container, .info-container {
+        padding: 20px;
+      }
+      
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .button-group button {
+        width: 100%;
+      }
+      
+      .menu-dropdown {
+        top: 70px;
+        right: 15px;
+        min-width: 200px;
+      }
+
+      .total-price {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Анимированный фон со звездами -->
+  <div class="stars" id="stars"></div>
+
+  <div class="header">
+    <div class="logo">АЙФОША & ЯБКУПИВ</div>
+    <button class="menu-button" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="menu-dropdown" id="menuDropdown">
+      <a href="#" onclick="showPage('trade-in')">
+        <i class="fas fa-exchange-alt"></i> Оцінка Trade IN
+      </a>
+      <a href="#" onclick="showPage('airpods')">
+        <i class="fas fa-headphones-alt"></i> Оцінка Airpods
+      </a>
+      <a href="#" onclick="showPage('oplatabank')">
+        <i class="fas fa-calculator"></i> Розрахунок ОЧ
+      </a>
+      <a href="#" onclick="showPage('testiphone')">
+        <i class="fas fa-mobile-alt"></i> Перевірка iPhone
+      </a>
+      <a href="#" onclick="showPage('testmac')">
+        <i class="fas fa-laptop"></i> Перевірка MacBook
+      </a>
+      <a href="#" onclick="showPage('pencil')">
+        <i class="fas fa-pencil-alt"></i> Підібрати Pencil
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Страница оценки Trade IN -->
+    <div id="trade-in" class="page active">
+      <div class="form-container">
+        <h2><i class="fas fa-exchange-alt"></i> Оцінка Trade IN</h2>
+        <form id="evaluation-form">
+          <div class="button-group" id="model-group">
+            <h3>Модель телефону:</h3>
+            <select id="model-select">
+              <option value="">Виберіть модель</option>
+              <option value="iPhone 16 Pro Max">iPhone 16 Pro Max</option>
+              <option value="iPhone 16 Pro">iPhone 16 Pro</option>
+              <option value="iPhone 16 Plus">iPhone 16+</option>
+              <option value="iPhone 16">iPhone 16</option>
+              <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
+              <option value="iPhone 15 Pro">iPhone 15 Pro</option>
+              <option value="iPhone 15 Plus">iPhone 15+</option>
+              <option value="iPhone 15">iPhone 15</option>
+              <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
+              <option value="iPhone 14 Pro">iPhone 14 Pro</option>
+              <option value="iPhone 14 Plus">iPhone 14+</option>
+              <option value="iPhone 14">iPhone 14</option>
+              <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
+              <option value="iPhone 13 Pro">iPhone 13 Pro</option>
+              <option value="iPhone 13">iPhone 13</option>
+              <option value="iPhone 13 Mini">iPhone 13 Mini</option>
+              <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
+              <option value="iPhone 12 Pro">iPhone 12 Pro</option>
+              <option value="iPhone 12">iPhone 12</option>
+              <option value="iPhone 12 Mini">iPhone 12 Mini</option>
+              <option value="iPhone 11 Pro Max">iPhone 11 Pro Max</option>
+              <option value="iPhone 11 Pro">iPhone 11 Pro</option>
+              <option value="iPhone 11">iPhone 11</option>
+              <option value="iPhone XS Max">iPhone XS Max</option>
+              <option value="iPhone XS">iPhone XS</option>
+              <option value="iPhone X">iPhone X</option>
+              <option value="iPhone XR">iPhone XR</option>
+              <option value="iPhone SE2022">iPhone SE 2022</option>
+              <option value="iPhone SE2020">iPhone SE 2020</option>
+              <option value="iPhone 8 Plus">iPhone 8+</option>
+              <option value="iPhone 8">iPhone 8</option>
+            </select>
+          </div>
+          <div class="button-group hidden" id="storage-group">
+            <h3>Об'єм пам'яті:</h3>
+          </div>
+          <div class="button-group hidden" id="battery-group">
+            <h3>Стан акумулятора:</h3>
+            <button type="button" data-battery="100-87" title="Отличное состояние аккумулятора">100-87%</button>
+            <button type="button" data-battery="86-79" title="Хорошее состояние аккумулятора">86-79%</button>
+          </div>
+          <div class="button-group hidden" id="sim-group">
+            <h3>Тип SIM-карти:</h3>
+            <button type="button" data-sim="esim">eSIM</button>
+            <button type="button" data-sim="regular">Фізична SIM</button>
+          </div>
+          <div class="result hidden" id="total-price">
+            <div class="total-price">0 ₴</div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Оцінка AirPods -->
+    <div id="airpods" class="page">
+      <div class="info-container">
+        <h2><i class="fas fa-headphones-alt"></i> Оцінка AirPods</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Модель</th>
+              <th>Оцінка</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AirPods 2</td>
+              <td>
+                <span class="success">A+ 2000</span> /
+                <span class="danger">B- 1500</span>
+              </td>
+            </tr>
+            <tr>
+              <td>AirPods 3</td>
+              <td>
+                <span class="success">A+ 2200</span> /
+                <span class="danger">B- 1600</span>
+              </td>
+            </tr>
+            <tr>
+              <td>AirPods Pro 2</td>
+              <td>
+                <span class="success">A+ 3000</span> /
+                <span class="danger">B- 2500</span>
+              </td>
+            </tr>
+            <tr>
+              <td>AirPods 4</td>
+              <td>
+                <span class="success">A+ 3800</span> /
+                <span class="danger">B- 3300</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Страница расчета ОЧ -->
+    <div id="oplatabank" class="page">
+      <div class="form-container">
+        <h2><i class="fas fa-money-bill-wave"></i> Монобанк</h2>
+        <input type="number" id="inputX" placeholder="Сума яка повинна зайти нам">
+        <div class="button-group">
+          <h3>Термін кредитування:</h3>
+          <button type="button" data-months="3">3 платежі</button>
+          <button type="button" data-months="6">6 платежів</button>
+          <button type="button" data-months="10">10 платежів</button>
+          <button type="button" data-months="12">12 платежів</button>
+          <button type="button" data-months="15">15 платежів</button>
+          <button type="button" data-months="18">18 платежів</button>
+        </div>
+        <div class="result-display">
+          <p id="formula1"></p>
+          <p id="result1"></p>
+        </div>
+        
+        <h2><i class="fas fa-university"></i> ПриватБанк <span class="danger">+ 2%</span></h2>
+        <input type="number" id="inputY" placeholder="Сума яка повинна зайти нам">
+        <div class="button-group">
+          <h3>Термін кредитування:</h3>
+          <button type="button" data-months2="3">3 платежі</button>
+          <button type="button" data-months2="6">6 платежів</button>
+          <button type="button" data-months2="10">10 платежів</button>
+          <button type="button" data-months2="12">12 платежів</button>
+          <button type="button" data-months2="15">15 платежів</button>
+          <button type="button" data-months2="18">18 платежів</button>
+        </div>
+        <div class="result-display">
+          <p id="formula2"></p>
+          <p id="result2"></p>
+        </div>
+
+        <h2><i class="fas fa-credit-card"></i> А-<span class="success">Банк + 1.7%</span></h2>
+        <input type="number" id="inputZ" placeholder="Сума яка повинна зайти нам">
+        <div class="button-group">
+          <h3>Термін кредитування:</h3>
+          <button type="button" data-months3="3">3 платежі</button>
+          <button type="button" data-months3="6">6 платежів</button>
+          <button type="button" data-months3="10">10 платежів</button>
+          <button type="button" data-months3="12">12 платежів</button>
+          <button type="button" data-months3="15">15 платежів</button>
+          <button type="button" data-months3="18">18 платежів</button>
+        </div>
+        <div class="result-display">
+          <p id="formula3"></p>
+          <p id="result3"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Страница проверки iPhone -->
+    <div id="testiphone" class="page">
+      <div class="info-container">
+        <h2><i class="fas fa-mobile-alt"></i> Схема перевірки iPhone</h2>
+        <ol>
+          <li>Уточнити у клієнта, що змінювалося в телефоні, чи був він у ремонті?</li>
+          <li>Перевірка телефона на розшук за базою <a href="https://wanted.mvs.gov.ua/searchthing" target="_blank" class="info">МВД</a></li>
+          <li>Підключення телефона до програми <b class="warning">3uTools</b></li>
+          <li>Оцінка зовнішнього стану (ГНУТОСТЬ КОРПУСА, сколы, подряпины, вмятины, тріщины)</li>
+          <li>Перевірка наявності болтів і цілісність сіточок динаміків (верхніх і нижніх)</li>
+          <li>Перевірка на наявність люфту екрана з корпусом</li>
+          <li>Перевірка екрана на оригінальність (товщина рамок, колір матриці повинен бути чорним, не сірим)</li>
+          <li>Перевірка працездатності всіх кнопок (на залипання, западання)</li>
+          <li>Вставляємо SIM-карту і слідкуємо, щоб не пропадала мережа</li>
+          <li>Включаємо дисплей на максимальну яскравість і перевіряємо на мертві зони</li>
+          <li>Перевірка дисплея на працездатність True Tone</li>
+          <li>Перевірка дисплея на плями, засвічення на білому та чорному фоні</li>
+          <li>Перевірка дисплея під кутом (щоб не було плям)</li>
+          <li>Перевірка камери (основної, фронтальної) на наявність плям у портретному режимі та пилу</li>
+          <li>Перевірка мікрофонів камери (основної, фронтальної, запис пробного відео зі звуком)</li>
+          <li>Перевірка мікрофона диктофона та перевірка компаса</li>
+          <li>Перевірка навушників (вставляємо навушники і перевіряємо працездатність)</li>
+          <li>Перевірка вібрації (Повзунок включення беззвучного режиму)</li>
+          <li>Перевірка роз'ємів навушників і зарядки (підключаємо навушники і зарядку)</li>
+          <li>Перевірка стану АКБ (щоб не було прочерка)</li>
+          <li>Працездатність Wi-Fi та Bluetooth</li>
+          <li>Перевірка функції Touch ID/Face ID</li>
+          <li>Тестовий дзвінок, перевіряємо на гучному та звичайному зв'язку, датчик затемнення</li>
+          <li>Перевірка функції Apple Pay</li>
+          <li>Перевірити звук (звучання верхнього та нижнього динаміка)</li>
+        </ol>
+        <div class="warning">
+          <i class="fas fa-exclamation-triangle"></i> При покупці телефона клієнта обов'язково робимо скидання контенту та налаштувань і активуємо через SIM-карту!
+        </div>
+      </div>
+    </div>
+    
+    <!-- Страница pencil -->
+    <div id="pencil" class="page">
+      <div class="info-container">
+        <h2><i class="fas fa-pencil-alt"></i> Підібрати Pencil</h2>
+        <h3 class="info">Pencil 1</h3>
+        <p>Базовою моделлю, яка підключається через роз'єм Lightning.</p>
+        <ul>
+          <li>iPad mini (5-го покоління)</li>
+          <li>iPad (6-го, 7-го, 8-го та 9-го покоління)</li>
+          <li>iPad (10-го покоління)*</li>
+          <li>iPad Air (3-го покоління)</li>
+          <li>iPad Pro 12,9 дюйма (1-го й 2-го покоління)</li>
+          <li>iPad Pro 10,5 дюйма</li>
+          <li>iPad Pro 9,7 дюйма</li>
+        </ul>
+        
+        <h3 class="info">Pencil 2</h3>
+        <p>Підтримує бездротове підключення та заряджання, а також функцію подвійного дотику для зміни інструментів.</p>
+        <ul>
+          <li>iPad mini (6-го покоління)</li>
+          <li>iPad Air (4-го або 5-го покоління)</li>
+          <li>iPad Pro 12,9 дюйма (3-го, 4-го, 5-го або 6-го покоління)</li>
+          <li>iPad Pro 11 дюймів (1-го, 2-го, 3-го або 4-го покоління)</li>
+        </ul>
+        
+        <h3 class="info">Pencil Type-C</h3>
+        <p>Підключення через USB-C (немає магнітного кріплення чи бездротової зарядки).</p>
+        <p>Чутливість до натиску та нахилу для точного малювання та письма.</p>
+        <ul>
+          <li>iPad Pro 13 дюймів (чип M4)</li>
+          <li>iPad Pro 11 дюймів (чип M4)</li>
+          <li>iPad Pro 11 дюймів (1-го, 2-го, 3-го або 4-го покоління)</li>
+          <li>iPad Pro 12,9 дюйма (3-го, 4-го, 5-го або 6-го покоління)</li>
+          <li>iPad Air 13 дюймів (чип M2)</li>
+          <li>iPad Air 11 дюймів (чип M2)</li>
+          <li>iPad Air (4-го або 5-го покоління)</li>
+          <li>iPad (10-го покоління)</li>
+          <li>iPad mini (A17 Pro)</li>
+          <li>iPad mini (6-го покоління)</li>
+        </ul>
+        
+        <h3 class="info">Pencil Pro</h3>
+        <p>Тактильний зворотний зв'язок, обертання, стискання та інтеграцію з «Локатором» для легкого пошуку пристрою.</p>
+        <ul>
+          <li>iPad Pro 13 дюймів (чип M4)</li>
+          <li>iPad Pro 11 дюймів (чип M4)</li>
+            <li>iPad Air 13 дюймів (чип M2)</li>
+        <li>iPad Air 11 дюймів (чип M2)</li>
+        <li>iPad mini (A17 Pro)</li>
+    </ul>
+    </div>
+  </div>
+
+  <!-- Страница проверки MacBook -->
+  <div id="testmac" class="page">
+    <div class="info-container">
+      <h2>Перевірка MacBook</h2>
+      <center>
+        <h4>
+          <p style="color: red;">
+            https://surl.li/qosupd | Відкриваємо на MAC
+          </p>
+        </h4>
+      </center>
+      <ul>
+        <li>❗️ Дізнайтеся типові показники продуктивності вибраної моделі мака в <a href="https://browser.geekbench.com/mac-benchmarks">Geekbench 5</a></li>
+        <li>❗️ Ціну на мак беремо з <a href="https://ti.ua/ua/mac-b-u/">Техноїжака</a>, шукаємо модель, яку принесли, та робимо зазор собі, в залежності від моделі.</li>
+        <li>❗️Або орієнтуємось від Ябко</li>
+        <li>❗️Розглядаємо моделі від 2019 року</li>
+      </ul>
+      <ol>
+        <li>Зовнішній вигляд, подряпини, вм'ятини на корпусі та дисплею.</li>
+        <li>Антибликове покриття</li>
+        <li>Відкрити кришку дисплею 10-15 разів (перевірка шлейфу)</li>
+        <li>Дисплей не повинен відходити від кришки та не ходити туди-сюди</li>
+        <li>Зарядний пристрій (оригінальний, кабель без нюансів) –1000, якщо жовтий або пошкоджений</li>
+        <li>Кнопки цілі без вмятин / не має хрустіння / залипання кнопок</li>
+        <li>Кнопки натискаються однаково (Текстовий документ, перевіряємо кожну кнопку)</li>
+        <li>Не має подвійного спрацювання кнопок</li>
+        <li>Трекпад (Цілісність та без дефектів)</li>
+        <li>Порти USB / USB-C</li>
+        <li>Підключити зарядне</li>
+        <li>Перевірка камери та мікрофону (Photo Booth)</li>
+        <li>Динаміки</li>
+        <li>Wi-Fi / Bluetooth / AirDrop – перевірка</li>
+        <li>Плями на білому фоні (PXC)</li>
+        <li>Перевірити аудіо вихід</li>
+        <li>Ємність і кількість циклів акумулятора (Coconut Battery)</li>
+        <li>Відповідність стану батареї віку ноутбука</li>
+        <li>Ноутбук рівно стоїть на столі (батарея сильно не роздута)</li>
+        <li>Перевірка кулерів (Macs Fan Control)</li>
+        <li>Температура датчиків у стані спокою CPU (65-70 градусів (інтел) Macs Fan Control)</li>
+        <li>Серійний номер на нижній кришці і в налаштуваннях однаковий</li>
+        <li>Зайти в розділ «Про цей Мак» і перевірте в «Звіті про систему» відповідність заявлених характеристик реальним. Жоден пункт не повинен виводити помилок.</li>
+        <li>Конфігурація відповідає заявленій (Процесор, пам'ять, SSD (Geekbench та інф. О маке)</li>
+        <li>Результат бенчмарку (Geekbench) — порівняти його характеристики з типовими. Сильне відхилення в низьку сторону — ознака несправності термоінтерфейсів і троттлінгу процесора, або підміна інформації «Про цей мак». Робити на зарядці.</li>
+        <li>Продуктивність і здоров'я SSD (DriveDx)</li>
+        <li>Перевірка відеочіпа (Heaven benchmark) — Бенчмарк Heaven перевірить графіку на артефакти, а також процесор на стабільність. Якщо під час тестування на екрані не було артефактів, а комп'ютер не завис — все в порядку.</li>
+        <li>Перевірка процесора (CPU Stress Test) не повинен лагати або потухнути</li>
+        <li><a style="color: red;">Немає облікового запису iCloud</a></li>
+        <li><a style="color: red;">Немає паролю прошивки</a></li>
+      </ol>
+      <hr />
+      <h2>Діагностика Apple</h2>
+      <center>Наступна частина тестів вимагає перезавантаження: У режимі відновлення (комбінація клавіш <b>Command+R</b>) перевірити, що на маку не встановлено пароль прошивки, що блокує перестановку системи і вибір завантажувального диска — в розділі «Утиліта пароля прошивки» або «Утиліта безпечного запуску».</center>
+      <ul>
+        <li>Процесор M: Пристрої потрібно ввімкнути і продовжувати утримувати кнопку живлення. Коли на екрані з'явиться вікно параметрів запуску, потрібно відпустити кнопку, а потім натиснути комбінацію клавіш Command+D.</li>
+        <li>Процесор Intel: Під час увімкнення Mac потрібно відразу утримувати клавішу D. Коли на екрані з'явиться індикатор виконання або запит на вибір мови, кнопку можна відпустити.</li>
+      </ul>
+      <hr />
+      <ul>
+        <li>«Діагностика Apple» відобразить результати на екрані у вигляді довідкових кодів. Якщо з пристроєм все в порядку, з'явиться напис «Проблеми не виявлені» з кодом ADP000.</li>
+        <li>Якщо ж на екрані відображається інший код, що свідчить про несправність комп'ютера, його значення необхідно переглянути на офіційному сайті Apple за <a href="https://support.apple.com/ru-ru/102334">посиланням</a>. Там вказано і опис несправності, і кроки, які можна зробити для її усунення.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Функция для переключения страниц
+  function showPage(pageId) {
+    // Скрываем все страницы
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active');
+    });
+
+    // Показываем выбранную страницу
+    document.getElementById(pageId).classList.add('active');
+
+    // Скрываем меню
+    document.getElementById('menuDropdown').style.display = 'none';
+  }
+
+  // Функция для показа/скрытия меню
+  function toggleMenu() {
+    const menuDropdown = document.getElementById('menuDropdown');
+    menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // Закрытие меню при клике вне его
+  window.addEventListener('click', (event) => {
+    const menuDropdown = document.getElementById('menuDropdown');
+    const menuButton = document.querySelector('.menu-button');
+    if (event.target !== menuButton && !menuButton.contains(event.target) && event.target !== menuDropdown && !menuDropdown.contains(event.target)) {
+      menuDropdown.style.display = 'none';
+    }
+  });
+
+  // Логика для страницы оценки Trade IN
+  const prices = {
+    "iPhone 16 Pro Max": {
+      storage: { 256: 44500, 512: 48600, 1024: 50000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 3600,
+    },
+    "iPhone 16 Pro": {
+      storage: { 128: 36000, 256: 40500, 512: 44000, 1024: 46000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 2400,
+    },
+    "iPhone 16 Plus": {
+      storage: { 128: 30000, 256: 33000, 512: 35000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1700,
+    },
+    "iPhone 16": {
+      storage: { 128: 27500, 256: 28300, 512: 31000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1500,
+    },
+    "iPhone 15 Pro Max": {
+      storage: { 256: 37300, 512: 40400, 1024: 41000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1500,
+    },
+    "iPhone 15 Pro": {
+      storage: { 128: 30700, 256: 34200, 512: 35000, 1024: 35500 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1500,
+    },
+    "iPhone 15 Plus": {
+      storage: { 128: 24500, 256: 26500, 512: 27000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1300,
+    },
+    "iPhone 15": {
+      storage: { 128: 22500, 256: 25300, 512: 26000 },
+      battery: { "100-87": 0, "86-79": -4500 },
+      hasSim: true,
+      esimDiscount: 1400,
+    },
+    "iPhone 14 Pro Max": {
+      storage: { 128: 26700, 256: 28000, 512: 29000, 1024: 29000 },
+      battery: { "100-87": 0, "86-79": -3500 },
+      hasSim: true,
+      esimDiscount: 2300,
+    },
+    "iPhone 14 Pro": {
+      storage: { 128: 23800, 256: 25000, 512: 25500, 1024: 25500 },
+      battery: { "100-87": 0, "86-79": -3500 },
+      hasSim: true,
+      esimDiscount: 2000,
+    },
+    "iPhone 14 Plus": {
+      storage: { 128: 16000, 256: 17000, 512: 17000 },
+      battery: { "100-87": 0, "86-79": -3500 },
+      hasSim: true,
+      esimDiscount: 1000,
+    },
+    "iPhone 14": {
+      storage: { 128: 15500, 256: 18200, 512: 18800 },
+      battery: { "100-87": 0, "86-79": -3500 },
+      hasSim: true,
+      esimDiscount: 1200,
+    },
+    "iPhone 13 Pro Max": {
+      storage: { 128: 20600, 256: 23100, 512: 24000, 1024: 24000 },
+      battery: { "100-87": 0, "86-79": -3000 },
+      hasSim: false,
+    },
+    "iPhone 13 Pro": {
+      storage: { 128: 18000, 256: 19500, 512: 20000, 1024: 20000 },
+      battery: { "100-87": 0, "86-79": -3000 },
+      hasSim: false,
+    },
+    "iPhone 13": {
+      storage: { 128: 13000, 256: 14500, 512: 14700 },
+      battery: { "100-87": 0, "86-79": -3000 },
+      hasSim: false,
+    },
+    "iPhone 13 Mini": {
+      storage: { 128: 9000, 256: 9500, 512: 10500 },
+      battery: { "100-87": 0, "86-79": -3000 },
+      hasSim: false,
+    },
+    "iPhone 12 Pro Max": {
+      storage: { 128: 15500, 256: 16500, 512: 17000 },
+      battery: { "100-87": 0, "86-79": -2500 },
+      hasSim: false,
+    },
+    "iPhone 12 Pro": {
+      storage: { 128: 12000, 256: 14000, 512: 14000 },
+      battery: { "100-87": 0, "86-79": -2500 },
+      hasSim: false,
+    },
+    "iPhone 12": {
+      storage: { 64: 8500, 128: 10300, 256: 11000 },
+      battery: { "100-87": 0, "86-79": -2500 },
+      hasSim: false,
+    },
+    "iPhone 12 Mini": {
+      storage: { 64: 4200, 128: 5200, 256: 5500 },
+      battery: { "100-87": 0, "86-79": -2500 },
+      hasSim: false,
+    },
+    "iPhone 11 Pro Max": {
+      storage: { 64: 9100, 256: 11700, 512: 11900 },
+      battery: { "100-87": 0, "86-79": -1700 },
+      hasSim: false,
+    },
+    "iPhone 11 Pro": {
+      storage: { 64: 8100, 256: 10500, 512: 10700 },
+      battery: { "100-87": 0, "86-79": -1700 },
+      hasSim: false,
+    },
+    "iPhone 11": {
+      storage: { 64: 7000, 128: 9000, 256: 9000 },
+      battery: { "100-87": 0, "86-79": -1500 },
+      hasSim: false,
+    },
+    "iPhone XS Max": {
+      storage: { 64: 5200, 256: 7000, 512: 7500 },
+      battery: { "100-87": 0, "86-79": -1500 },
+      hasSim: false,
+    },
+    "iPhone XS": {
+      storage: { 64: 5200, 256: 6500, 512: 7000 },
+      battery: { "100-87": 0, "86-79": -1500 },
+      hasSim: false,
+    },
+    "iPhone X": {
+      storage: { 64: 3500, 256: 5500 },
+      battery: { "100-87": 0, "86-79": -1500 },
+      hasSim: false,
+    },
+    "iPhone XR": {
+      storage: { 64: 5100, 128: 6000, 256: 6000 },
+      battery: { "100-87": 0, "86-79": -1500 },
+      hasSim: false,
+    },
+    "iPhone SE2022": {
+      storage: { 64: 3500, 128: 4500, 256: 4500 },
+      battery: { "100-87": 0, "86-79": -1700 },
+      hasSim: false,
+    },
+    "iPhone SE2020": {
+      storage: { 64: 3200, 128: 4000, 256: 4100 },
+      battery: { "100-87": 0, "86-79": -1700 },
+      hasSim: false,
+    },
+    "iPhone 8 Plus": {
+      storage: { 64: 2500, 256: 3000 },
+      battery: { "100-87": 0, "86-79": -800 },
+      hasSim: false,
+    },
+    "iPhone 8": {
+      storage: { 64: 2000, 128: 2300 },
+      battery: { "100-87": 0, "86-79": -800 },
+      hasSim: false,
+    },
+  };
+
+  const modelSelect = document.getElementById('model-select');
+  const storageGroup = document.getElementById('storage-group');
+  const batteryGroup = document.getElementById('battery-group');
+  const simGroup = document.getElementById('sim-group');
+  const totalPriceDiv = document.getElementById('total-price');
+  const totalPriceValue = totalPriceDiv.querySelector('.total-price');
+
+  function resetForm() {
+    storageGroup.classList.add('hidden');
+    batteryGroup.classList.add('hidden');
+    simGroup.classList.add('hidden');
+    totalPriceDiv.classList.add('hidden');
+    resetActiveButtons(storageGroup);
+    resetActiveButtons(batteryGroup);
+    resetActiveButtons(simGroup);
+    totalPriceValue.textContent = '0 ₴';
+  }
+
+  function resetActiveButtons(container) {
+    container.querySelectorAll('button.active').forEach(button => {
+      button.classList.remove('active');
+    });
+  }
+
+  function updateStorageOptions(model) {
+    const storageOptions = prices[model].storage;
+    storageGroup.innerHTML = '<h3>Объем памяти:</h3>';
+    for (const storage in storageOptions) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = `${storage} ГБ`;
+      button.dataset.storage = storage;
+      storageGroup.appendChild(button);
+    }
+    storageGroup.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', () => {
+        resetActiveButtons(storageGroup);
+        button.classList.add('active');
+        batteryGroup.classList.remove('hidden');
+        batteryGroup.classList.add('fade-in');
+        updateTotalPrice();
+      });
+    });
+  }
+
+  function updateTotalPrice() {
+    const model = modelSelect.value;
+    const storage = storageGroup.querySelector('button.active')?.dataset.storage;
+    const battery = batteryGroup.querySelector('button.active')?.dataset.battery;
+    const sim = simGroup.querySelector('button.active')?.dataset.sim;
+
+    console.log('Model:', model);
+    console.log('Storage:', storage);
+    console.log('Battery:', battery);
+    console.log('SIM:', sim);
+
+    if (!model || !storage || !battery) {
+      totalPriceDiv.classList.add('hidden');
+      return;
+    }
+
+    if (prices[model]?.hasSim && !sim) {
+      totalPriceDiv.classList.add('hidden');
+      return;
+    }
+
+    const basePrice = prices[model].storage[storage] || 0;
+    const batteryPrice = prices[model].battery[battery] || 0;
+    const esimDiscount = sim === 'esim' ? prices[model].esimDiscount : 0;
+    const totalPrice = (basePrice + batteryPrice) - esimDiscount;
+
+    totalPriceValue.textContent = `${totalPrice.toFixed(0)} ₴`;
+    totalPriceDiv.classList.remove('hidden');
+    totalPriceDiv.classList.add('fade-in');
+  }
+
+  modelSelect.addEventListener('change', () => {
+    resetForm();
+    if (modelSelect.value) {
+      updateStorageOptions(modelSelect.value);
+      storageGroup.classList.remove('hidden');
+      storageGroup.classList.add('fade-in');
+    }
+  });
+
+  batteryGroup.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      resetActiveButtons(batteryGroup);
+      button.classList.add('active');
+      const selectedModel = modelSelect.value;
+      if (prices[selectedModel]?.hasSim) {
+        simGroup.classList.remove('hidden');
+        simGroup.classList.add('fade-in');
+      } else {
+        simGroup.classList.add('hidden');
+      }
+      updateTotalPrice();
+    });
+  });
+
+  simGroup.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      resetActiveButtons(simGroup);
+      button.classList.add('active');
+      updateTotalPrice();
+    });
+  });
+
+  // Логика для страницы расчета ОЧ
+  function calculateFirst() {
+    const X = parseFloat(document.getElementById("inputX").value);
+    const selectedButton = document.querySelector('.button-group button[data-months].active');
+    const divideBy = selectedButton ? parseFloat(selectedButton.dataset.months) : 0;
+    let percentage = 0;
+
+    if (!selectedButton) {
+      document.getElementById("formula1").textContent = "";
+      document.getElementById("result1").textContent = "";
+      return;
+    }
+
+    switch (divideBy) {
+      case 3: percentage = 3.1; break;
+      case 6: percentage = 8; break;
+      case 10: percentage = 13.7; break;
+      case 12: percentage = 16.9; break;
+      case 15: percentage = 21.6; break;
+      case 18: percentage = 26.5; break;
+    }
+
+    if (!isNaN(X) && !isNaN(divideBy) && X > 0) {
+      const Y = X + (X * (percentage / 100));
+      document.getElementById("formula1").textContent = `Вартість по 1С: ${Y.toFixed(2)} ₴`;
+      const result = Y / divideBy;
+      document.getElementById("result1").textContent = `В місяць по: ${result.toFixed(2)} ₴`;
+    } else {
+      document.getElementById("formula1").textContent = "";
+      document.getElementById("result1").textContent = "";
+    }
+  }
+
+  function calculateSecond() {
+    const Y2 = parseFloat(document.getElementById("inputY").value);
+    const selectedButton = document.querySelector('.button-group button[data-months2].active');
+    const divideBy2 = selectedButton ? parseFloat(selectedButton.dataset.months2) : 0;
+    let percentage2 = 0;
+
+    if (!selectedButton) {
+      document.getElementById("formula2").textContent = "";
+      document.getElementById("result2").textContent = "";
+      return;
+    }
+
+    switch (divideBy2) {
+      case 3: percentage2 = 1.8; break;
+      case 6: percentage2 = 7.7; break;
+      case 10: percentage2 = 15.6; break;
+      case 12: percentage2 = 16.6; break;
+      case 15: percentage2 = 21.6; break;
+      case 18: percentage2 = 26.6; break;
+    }
+
+    if (!isNaN(Y2) && !isNaN(divideBy2) && Y2 > 0) {
+      const YResult2 = Y2 + (Y2 * (percentage2 / 100));
+      document.getElementById("formula2").textContent = `Вартість по 1С: ${YResult2.toFixed(2)} ₴`;
+      const result2 = YResult2 / divideBy2;
+      document.getElementById("result2").textContent = `В місяць по: ${result2.toFixed(2)} ₴`;
+    } else {
+      document.getElementById("formula2").textContent = "";
+      document.getElementById("result2").textContent = "";
+    }
+  }
+
+    function calculateThird() {
+    const Z = parseFloat(document.getElementById("inputZ").value);
+    const selectedButton = document.querySelector('.button-group button[data-months3].active');
+    const divideBy3 = selectedButton ? parseFloat(selectedButton.dataset.months3) : 0;
+    let percentage3 = 0;
+
+    if (!selectedButton) {
+      document.getElementById("formula3").textContent = "";
+      document.getElementById("result3").textContent = "";
+      return;
+    }
+
+    switch (divideBy3) {
+      case 3: percentage3 = 3.3; break;
+      case 6: percentage3 = 7.5; break;
+      case 10: percentage3 = 12.0; break;
+      case 12: percentage3 = 14.3; break;
+      case 15: percentage3 = 17.7; break;
+      case 18: percentage3 = 21.0; break;
+    }
+
+    if (!isNaN(Z) && Z > 0) {
+      const YResult3 = Z + (Z * (percentage3 / 100));
+      document.getElementById("formula3").textContent = `Вартість по 1С: ${YResult3.toFixed(2)} ₴`;
+      document.getElementById("result3").textContent = `В місяць по: ${(YResult3 / divideBy3).toFixed(2)} ₴`;
+    }
+  }
+
+  document.getElementById("inputX").addEventListener("input", calculateFirst);
+  document.querySelectorAll('.button-group button[data-months]').forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll('.button-group button[data-months]').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      calculateFirst();
+    });
+  });
+
+  document.getElementById("inputY").addEventListener("input", calculateSecond);
+  document.querySelectorAll('.button-group button[data-months2]').forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll('.button-group button[data-months2]').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      calculateSecond();
+    });
+  });
+
+    document.getElementById("inputZ").addEventListener("input", calculateThird);
+  document.querySelectorAll('.button-group button[data-months3]').forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll('.button-group button[data-months3]').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      calculateThird();
+    });
+  });
+</script>
+</body>
+</html>
