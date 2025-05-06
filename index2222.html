@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade In Your Device</title>
+    <style>
+        :root {
+            --apple-blue: #0066cc;
+            --apple-light-gray: #f5f5f7;
+            --apple-dark-gray: #1d1d1f;
+            --apple-border-gray: #d2d2d7;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: white;
+            color: var(--apple-dark-gray);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        
+        .trade-in-header {
+            text-align: center;
+            padding: 64px 0 48px;
+        }
+        
+        .trade-in-header h1 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .trade-in-header p {
+            font-size: 21px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #86868b;
+        }
+        
+        .trade-in-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 33.33%;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--apple-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .step-connector {
+            position: absolute;
+            top: 16px;
+            left: calc(-50% + 16px);
+            right: calc(50% + 16px);
+            height: 1px;
+            background-color: var(--apple-border-gray);
+        }
+        
+        .trade-in-form {
+            background-color: var(--apple-light-gray);
+            border-radius: 18px;
+            padding: 44px;
+            margin-bottom: 48px;
+        }
+        
+        .form-group {
+            margin-bottom: 32px;
+        }
+        
+        .form-group h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 17px;
+            border: 1px solid var(--apple-border-gray);
+            border-radius: 12px;
+            background-color: white;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+        }
+        
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .options-group button {
+            padding: 12px 20px;
+            font-size: 17px;
+            background-color: white;
+            border: 1px solid var(--apple-border-gray);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .options-group button:hover {
+            border-color: var(--apple-blue);
+        }
+        
+        .options-group button.active {
+            background-color: var(--apple-blue);
+            color: white;
+            border-color: var(--apple-blue);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .total-price-container {
+            text-align: center;
+            padding: 32px 0;
+        }
+        
+        .total-price-label {
+            font-size: 14px;
+            color: #86868b;
+            margin-bottom: 4px;
+        }
+        
+        .total-price {
+            font-size: 56px;
+            font-weight: 600;
+        }
+        
+        .trade-in-footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid var(--apple-border-gray);
+            margin-top: 32px;
+        }
+        
+        .trade-in-footer p {
+            font-size: 12px;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+        
+        .continue-button {
+            background-color: var(--apple-blue);
+            color: white;
+            border: none;
+            border-radius: 980px;
+            padding: 12px 22px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .continue-button:hover {
+            background-color: #0077ed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="trade-in-header">
+            <h1>Trade In Your Device</h1>
+            <p>Get credit toward a new device when you trade in your eligible device. Or recycle it for free.</p>
+        </div>
+        
+        <div class="trade-in-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Select your device</div>
+            </div>
+            <div class="step">
+                <div class="step-connector"></div>
+                <div class="step-number">2</div>
+                <div class="step-title">Tell us about it</div>
+            </div>
+            <div class="step">
+                <div class="step-connector"></div>
+                <div class="step-number">3</div>
+                <div class="step-title">Get your estimate</div>
+            </div>
+        </div>
+        
+        <div class="trade-in-form">
+            <div class="form-group">
+                <h2>Which device would you like to trade in?</h2>
+                <select id="model-select">
+                    <option value="">Select your device</option>
+                    <optgroup label="iPhone 16 Series">
+                        <option value="iPhone 16 Pro Max">iPhone 16 Pro Max</option>
+                        <option value="iPhone 16 Pro">iPhone 16 Pro</option>
+                        <option value="iPhone 16 Plus">iPhone 16 Plus</option>
+                        <option value="iPhone 16">iPhone 16</option>
+                    </optgroup>
+                    <optgroup label="iPhone 15 Series">
+                        <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
+                        <option value="iPhone 15 Pro">iPhone 15 Pro</option>
+                        <option value="iPhone 15 Plus">iPhone 15 Plus</option>
+                        <option value="iPhone 15">iPhone 15</option>
+                    </optgroup>
+                    <optgroup label="iPhone 14 Series">
+                        <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
+                        <option value="iPhone 14 Pro">iPhone 14 Pro</option>
+                        <option value="iPhone 14 Plus">iPhone 14 Plus</option>
+                        <option value="iPhone 14">iPhone 14</option>
+                    </optgroup>
+                    <optgroup label="iPhone 13 Series">
+                        <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
+                        <option value="iPhone 13 Pro">iPhone 13 Pro</option>
+                        <option value="iPhone 13">iPhone 13</option>
+                        <option value="iPhone 13 Mini">iPhone 13 Mini</option>
+                    </optgroup>
+                    <optgroup label="iPhone 12 Series">
+                        <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
+                        <option value="iPhone 12 Pro">iPhone 12 Pro</option>
+                        <option value="iPhone 12">iPhone 12</option>
+                        <option value="iPhone 12 Mini">iPhone 12 Mini</option>
+                    </optgroup>
+                    <optgroup label="Older Models">
+                        <option value="iPhone 11 Pro Max">iPhone 11 Pro Max</option>
+                        <option value="iPhone 11 Pro">iPhone 11 Pro</option>
+                        <option value="iPhone 11">iPhone 11</option>
+                        <option value="iPhone XS Max">iPhone XS Max</option>
+                        <option value="iPhone XS">iPhone XS</option>
+                        <option value="iPhone X">iPhone X</option>
+                        <option value="iPhone XR">iPhone XR</option>
+                        <option value="iPhone SE2022">iPhone SE (2022)</option>
+                        <option value="iPhone SE2020">iPhone SE (2020)</option>
+                        <option value="iPhone 8 Plus">iPhone 8 Plus</option>
+                        <option value="iPhone 8">iPhone 8</option>
+                    </optgroup>
+                </select>
+            </div>
+            
+            <div id="storage-group" class="form-group hidden">
+                <h2>What is the storage capacity of your device?</h2>
+                <div class="options-group"></div>
+            </div>
+            
+            <div id="battery-group" class="form-group hidden">
+                <h2>What is the battery health of your device?</h2>
+                <div class="options-group">
+                    <button type="button" data-battery="100-87">87% or above</button>
+                    <button type="button" data-battery="86-79">79% to 86%</button>
+                </div>
+            </div>
+            
+            <div id="sim-group" class="form-group hidden">
+                <h2>Does your device have a SIM card?</h2>
+                <div class="options-group">
+                    <button type="button" data-sim="physical">Yes, physical SIM</button>
+                    <button type="button" data-sim="esim">Yes, eSIM only</button>
+                    <button type="button" data-sim="none">No SIM card</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="total-price" class="total-price-container hidden">
+            <div class="total-price-label">Estimated trade-in value</div>
+            <div class="total-price">0 ₴</div>
+        </div>
+        
+        <div class="trade-in-footer">
+            <p>Trade-in values will vary based on the condition, year, and configuration of your eligible trade-in device. Not all devices are eligible for credit. You must be at least 18 years old to be eligible to trade in for credit.</p>
+            <button class="continue-button">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // Логика для страницы оценки Trade IN
+        const prices = {
+            "iPhone 16 Pro Max": {
+                storage: { 256: 44000, 512: 48000, 1024: 49000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 3600,
+            },
+            "iPhone 16 Pro": {
+                storage: { 128: 35800, 256: 40000, 512: 43500, 1024: 45500 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 2400,
+            },
+            "iPhone 16 Plus": {
+                storage: { 128: 29000, 256: 32000, 512: 33000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1700,
+            },
+            "iPhone 16": {
+                storage: { 128: 27000, 256: 28300, 512: 31000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1500,
+            },
+            "iPhone 15 Pro Max": {
+                storage: { 256: 37000, 512: 40000, 1024: 41000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1500,
+            },
+            "iPhone 15 Pro": {
+                storage: { 128: 30700, 256: 34000, 512: 35000, 1024: 35500 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1500,
+            },
+            "iPhone 15 Plus": {
+                storage: { 128: 24500, 256: 26500, 512: 27000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1300,
+            },
+            "iPhone 15": {
+                storage: { 128: 22500, 256: 25300, 512: 26000 },
+                battery: { "100-87": 0, "86-79": -4500 },
+                hasSim: true,
+                esimDiscount: 1400,
+            },
+            "iPhone 14 Pro Max": {
+                storage: { 128: 26700, 256: 28000, 512: 29000, 1024: 29000 },
+                battery: { "100-87": 0, "86-79": -3500 },
+                hasSim: true,
+                esimDiscount: 2300,
+            },
+            "iPhone 14 Pro": {
+                storage: { 128: 23800, 256: 25000, 512: 25500, 1024: 25500 },
+                battery: { "100-87": 0, "86-79": -3500 },
+                hasSim: true,
+                esimDiscount: 2000,
+            },
+            "iPhone 14 Plus": {
+                storage: { 128: 16000, 256: 17000, 512: 17000 },
+                battery: { "100-87": 0, "86-79": -3500 },
+                hasSim: true,
+                esimDiscount: 1000,
+            },
+            "iPhone 14": {
+                storage: { 128: 15500, 256: 18200, 512: 18800 },
+                battery: { "100-87": 0, "86-79": -3500 },
+                hasSim: true,
+                esimDiscount: 1200,
+            },
+            "iPhone 13 Pro Max": {
+                storage: { 128: 20600, 256: 23100, 512: 24000, 1024: 24000 },
+                battery: { "100-87": 0, "86-79": -3000 },
+                hasSim: false,
+            },
+            "iPhone 13 Pro": {
+                storage: { 128: 17800, 256: 19200, 512: 19900, 1024: 20000 },
+                battery: { "100-87": 0, "86-79": -3000 },
+                hasSim: false,
+            },
+            "iPhone 13": {
+                storage: { 128: 12800, 256: 14500, 512: 14700 },
+                battery: { "100-87": 0, "86-79": -3000 },
+                hasSim: false,
+            },
+            "iPhone 13 Mini": {
+                storage: { 128: 8200, 256: 8500, 512: 8500 },
+                battery: { "100-87": 0, "86-79": -3000 },
+                hasSim: false,
+            },
+            "iPhone 12 Pro Max": {
+                storage: { 128: 15300, 256: 16500, 512: 17000 },
+                battery: { "100-87": 0, "86-79": -2500 },
+                hasSim: false,
+            },
+            "iPhone 12 Pro": {
+                storage: { 128: 12000, 256: 13500, 512: 14000 },
+                battery: { "100-87": 0, "86-79": -2500 },
+                hasSim: false,
+            },
+            "iPhone 12": {
+                storage: { 64: 8500, 128: 10300, 256: 11000 },
+                battery: { "100-87": 0, "86-79": -2500 },
+                hasSim: false,
+            },
+            "iPhone 12 Mini": {
+                storage: { 64: 4200, 128: 5200, 256: 5500 },
+                battery: { "100-87": 0, "86-79": -2500 },
+                hasSim: false,
+            },
+            "iPhone 11 Pro Max": {
+                storage: { 64: 9100, 256: 11700, 512: 11900 },
+                battery: { "100-87": 0, "86-79": -1700 },
+                hasSim: false,
+            },
+            "iPhone 11 Pro": {
+                storage: { 64: 8100, 256: 10500, 512: 10700 },
+                battery: { "100-87": 0, "86-79": -1700 },
+                hasSim: false,
+            },
+            "iPhone 11": {
+                storage: { 64: 6800, 128: 8400, 256: 9000 },
+                battery: { "100-87": 0, "86-79": -1500 },
+                hasSim: false,
+            },
+            "iPhone XS Max": {
+                storage: { 64: 5200, 256: 7000, 512: 7500 },
+                battery: { "100-87": 0, "86-79": -1500 },
+                hasSim: false,
+            },
+            "iPhone XS": {
+                storage: { 64: 5200, 256: 6500, 512: 7000 },
+                battery: { "100-87": 0, "86-79": -1500 },
+                hasSim: false,
+            },
+            "iPhone X": {
+                storage: { 64: 3500, 256: 5500 },
+                battery: { "100-87": 0, "86-79": -1500 },
+                hasSim: false,
+            },
+            "iPhone XR": {
+                storage: { 64: 5100, 128: 6000, 256: 6000 },
+                battery: { "100-87": 0, "86-79": -1500 },
+                hasSim: false,
+            },
+            "iPhone SE2022": {
+                storage: { 64: 3200, 128: 4200, 256: 4200 },
+                battery: { "100-87": 0, "86-79": -1700 },
+                hasSim: false,
+            },
+            "iPhone SE2020": {
+                storage: { 64: 3000, 128: 3800, 256: 4100 },
+                battery: { "100-87": 0, "86-79": -1700 },
+                hasSim: false,
+            },
+            "iPhone 8 Plus": {
+                storage: { 64: 2400, 256: 3000 },
+                battery: { "100-87": 0, "86-79": -800 },
+                hasSim: false,
+            },
+            "iPhone 8": {
+                storage: { 64: 2000, 128: 2300 },
+                battery: { "100-87": 0, "86-79": -800 },
+                hasSim: false,
+            },
+        };
+
+        const modelSelect = document.getElementById('model-select');
+        const storageGroup = document.getElementById('storage-group');
+        const batteryGroup = document.getElementById('battery-group');
+        const simGroup = document.getElementById('sim-group');
+        const totalPriceDiv = document.getElementById('total-price');
+        const totalPriceValue = totalPriceDiv.querySelector('.total-price');
+
+        function resetForm() {
+            storageGroup.classList.add('hidden');
+            batteryGroup.classList.add('hidden');
+            simGroup.classList.add('hidden');
+            totalPriceDiv.classList.add('hidden');
+            resetActiveButtons(storageGroup);
+            resetActiveButtons(batteryGroup);
+            resetActiveButtons(simGroup);
+            totalPriceValue.textContent = '0 ₴';
+        }
+
+        function resetActiveButtons(container) {
+            container.querySelectorAll('button.active').forEach(button => {
+                button.classList.remove('active');
+            });
+        }
+
+        function updateStorageOptions(model) {
+            const storageOptions = prices[model].storage;
+            const optionsGroup = storageGroup.querySelector('.options-group');
+            optionsGroup.innerHTML = '';
+            
+            for (const storage in storageOptions) {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.textContent = `${storage} GB`;
+                button.dataset.storage = storage;
+                optionsGroup.appendChild(button);
+            }
+            
+            optionsGroup.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', () => {
+                    resetActiveButtons(storageGroup);
+                    button.classList.add('active');
+                    batteryGroup.classList.remove('hidden');
+                    batteryGroup.classList.add('fade-in');
+                    updateTotalPrice();
+                });
+            });
+        }
+
+        function updateTotalPrice() {
+            const model = modelSelect.value;
+            const storage = storageGroup.querySelector('button.active')?.dataset.storage;
+            const battery = batteryGroup.querySelector('button.active')?.dataset.battery;
+            const sim = simGroup.querySelector('button.active')?.dataset.sim;
+
+            if (!model || !storage || !battery) {
+                totalPriceDiv.classList.add('hidden');
+                return;
+            }
+
+            if (prices[model]?.hasSim && !sim) {
+                totalPriceDiv.classList.add('hidden');
+                return;
+            }
+
+            const basePrice = prices[model].storage[storage] || 0;
+            const batteryPrice = prices[model].battery[battery] || 0;
+            const esimDiscount = sim === 'esim' ? prices[model].esimDiscount || 0 : 0;
+            const totalPrice = (basePrice + batteryPrice) - esimDiscount;
+
+            totalPriceValue.textContent = `${totalPrice.toFixed(0)} ₴`;
+            totalPriceDiv.classList.remove('hidden');
+            totalPriceDiv.classList.add('fade-in');
+        }
+
+        modelSelect.addEventListener('change', () => {
+            resetForm();
+            if (modelSelect.value) {
+                updateStorageOptions(modelSelect.value);
+                storageGroup.classList.remove('hidden');
+                storageGroup.classList.add('fade-in');
+            }
+        });
+
+        batteryGroup.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                resetActiveButtons(batteryGroup);
+                button.classList.add('active');
+                const selectedModel = modelSelect.value;
+                if (prices[selectedModel]?.hasSim) {
+                    simGroup.classList.remove('hidden');
+                    simGroup.classList.add('fade-in');
+                } else {
+                    simGroup.classList.add('hidden');
+                }
+                updateTotalPrice();
+            });
+        });
+
+        simGroup.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                resetActiveButtons(simGroup);
+                button.classList.add('active');
+                updateTotalPrice();
+            });
+        });
+    </script>
+</body>
+</html>
