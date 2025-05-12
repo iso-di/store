@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Оцінка Trade-In</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f2f2f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .series, .model {
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .series:hover, .model:hover {
+      background-color: #e5e5ea;
+    }
+
+    .sub-models {
+      display: none;
+      margin-left: 12px;
+    }
+
+    .details {
+      display: none;
+      margin-top: 6px;
+      margin-bottom: 6px; /* ✅ додаєш відступ знизу */
+      padding: 10px 12px;
+      border-left: 3px solid #007aff;
+      background-color: #f1f1f5;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .price-row:last-child {
+      border-bottom: none;
+    }
+
+    .defect {
+      color: #ff3b30;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Серія iPhone 16 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 16</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>256 GB</span><span>47 000 грн</span></div>
+      <div class="price-row"><span>512 GB</span><span>50 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <!-- Добавлены модели для iPhone 16 -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>45 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>47 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Plus</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>39 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>37 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+  </div>
+
+  <!-- Добавлены серий для iPhone 15, 14, 13, 12, 11 -->
+  <!-- iPhone 15 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 15</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 15 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>256 GB</span><span>45 000 грн</span></div>
+      <div class="price-row"><span>512 GB</span><span>48 000 грн</span></div>
+    </div>
+
+    <!-- iPhone 15 Pro -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 15 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>42 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>45 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 14 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 14</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 14 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>39 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>42 000 грн</span></div>
+    </div>
+
+    <!-- iPhone 14 Pro -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 14 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>36 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>39 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 13 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 13</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 13 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>32 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>35 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 12 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 12</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 12 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>29 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>32 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 11 -->
+  <div class="series" onclick="toggleSubModels(this)">
+    <span><i class="fas fa-layer-group"></i> iPhone 11</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 11 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>64 GB</span><span>24 000 грн</span></div>
+      <div class="price-row"><span>128 GB</span><span>27 000 грн</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleSubModels(seriesElement) {
+    const subModels = seriesElement.nextElementSibling;
+    const icon = seriesElement.querySelector("i.fas.fa-chevron-down, i.fas.fa-chevron-up");
+
+    document.querySelectorAll(".sub-models").forEach(sm => {
+      if (sm !== subModels) sm.style.display = "none";
+    });
+
+    document.querySelectorAll(".series i.fas.fa-chevron-up").forEach(i => {
+      if (i !== icon) {
+        i.classList.remove("fa-chevron-up");
+        i.classList.add("fa-chevron-down");
+      }
+    });
+
+    if (subModels.style.display === "block") {
+      subModels.style.display = "none";
+      icon.classList.remove("fa-chevron-up");
+      icon.classList.add("fa-chevron-down");
+    } else {
+      subModels.style.display = "block";
+      icon.classList.remove("fa-chevron-down");
+      icon.classList.add("fa-chevron-up");
+    }
+  }
+
+  function toggleDetails(modelElement) {
+    const details = modelElement.nextElementSibling;
+    const icon = modelElement.querySelector("i.fas.fa-chevron-down, i.fas.fa-chevron-up");
+
+    const parent = modelElement.parentElement;
+    parent.querySelectorAll(".details").forEach(d => {
+      if (d !== details) d.style.display = "none";
+    });
+    parent.querySelectorAll(".model i.fas.fa-chevron-up").forEach(i => {
+      if (i !== icon) {
+        i.classList.remove("fa-chevron-up");
+        i.classList.add("fa-chevron-down");
+      }
+    });
+
+    if (details.style.display === "block") {
+      details.style.display = "none";
+      icon.classList.remove("fa-chevron-up");
+      icon.classList.add("fa-chevron-down");
+    } else {
+      details.style.display = "block";
+      icon.classList.remove("fa-chevron-down");
+      icon.classList.add("fa-chevron-up");
+    }
+  }
+</script>
+
+</body>
+</html>
