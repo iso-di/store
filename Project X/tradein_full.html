@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Оцінка Trade-In</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<div class="header">
+  <button class="apple-btn" id="appleBtn">
+    <i class="fab fa-apple"></i>
+  </button>
+  <div class="dropdown" id="dropdownMenu">
+    <div class="dropdown-item" onclick="filterByCategory('tradein')">Оцінка Trade In</div>
+    <div class="dropdown-item" onclick="filterByCategory('airpods')">Оцінка Airpods</div>
+    <div class="dropdown-item" onclick="filterByCategory('och')">Розрахунок ОЧ</div>
+    <div class="dropdown-item" onclick="filterByCategory('iphone_check')">Перевірка iPhone</div>
+    <div class="dropdown-item" onclick="filterByCategory('pencil')">Підібрати Pencil</div>
+  </div>
+</div>
+
+<div class="card" id="tradein">
+  <!-- Серія iPhone 16 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="tradein">
+    <span><i class="fas fa-layer-group"></i> iPhone 16</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>256 GB</span><span>47 000 грн</span></div>
+      <div class="price-row"><span>512 GB</span><span>50 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <!-- Добавлены модели для iPhone 16 -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>45 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>47 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect2">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16 Plus</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>39 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 16</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>37 000 грн</span></div>
+      <div class="defect">• АКБ менше 87%: -1 500 грн</div>
+      <div class="defect">• Пил у камерах: -1 200 грн</div>
+    </div>
+  </div>
+
+  <!-- Добавлены серий для iPhone 15, 14, 13, 12, 11 -->
+  <!-- iPhone 15 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="iphone">
+    <span><i class="fas fa-layer-group"></i> iPhone 15</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 15 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>256 GB</span><span>45 000 грн</span></div>
+      <div class="price-row"><span>512 GB</span><span>48 000 грн</span></div>
+    </div>
+
+    <!-- iPhone 15 Pro -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 15 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>42 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>45 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 14 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="iphone">
+    <span><i class="fas fa-layer-group"></i> iPhone 14</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 14 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>39 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>42 000 грн</span></div>
+    </div>
+
+    <!-- iPhone 14 Pro -->
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 14 Pro</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>36 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>39 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 13 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="iphone">
+    <span><i class="fas fa-layer-group"></i> iPhone 13</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 13 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>32 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>35 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 12 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="iphone">
+    <span><i class="fas fa-layer-group"></i> iPhone 12</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 12 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>128 GB</span><span>29 000 грн</span></div>
+      <div class="price-row"><span>256 GB</span><span>32 000 грн</span></div>
+    </div>
+  </div>
+
+  <!-- iPhone 11 -->
+  <div class="series" onclick="toggleSubModels(this)" data-category="iphone">
+    <span><i class="fas fa-layer-group"></i> iPhone 11</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+  <div class="sub-models">
+    <div class="model" onclick="toggleDetails(this)">
+      <span><i class="fas fa-mobile-alt"></i> iPhone 11 Pro Max</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="details">
+      <div class="price-row"><span>64 GB</span><span>24 000 грн</span></div>
+      <div class="price-row"><span>128 GB</span><span>27 000 грн</span></div>
+    </div>
+  </div>
+  <!-- Оцінка AirPods -->
+</div>
+
+<!-- Оцінка AirPods -->
+<div id="airpods" class="page" style="display:none;">
+  <div class="card" style="max-width: 800px; margin: 40px auto; background: #fff; padding: 20px;">
+    <div class="info-container">
+      <h2 style="font-size: 28px; color: #333; font-weight: 600; margin-bottom: 20px;">Оцінка AirPods</h2>
+      <table style="width: 100%; border-spacing: 0; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="text-align: left; padding: 12px 18px; font-size: 18px; color: #007aff;">Модель</th>
+            <th style="text-align: right; padding: 12px 18px; font-size: 18px; color: #007aff;">Оцінка</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #e5e5ea;">
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">AirPods 2</td>
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">
+              <span style="color: rgb(0, 255, 30); font-weight: 600;">A+ 2000</span> /
+              <span style="color: red; font-weight: 600;">B- 1500</span>
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e5e5ea;">
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">AirPods 3</td>
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">
+              <span style="color: rgb(0, 255, 30); font-weight: 600;">A+ 2200</span> /
+              <span style="color: red; font-weight: 600;">B- 1600</span>
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #e5e5ea;">
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">AirPods Pro 2</td>
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">
+              <span style="color: rgb(0, 255, 30); font-weight: 600;">A+ 3000</span> /
+              <span style="color: red; font-weight: 600;">B- 2500</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">AirPods 4</td>
+            <td style="padding: 14px 18px; font-size: 16px; color: #333;">
+              <span style="color: rgb(0, 255, 30); font-weight: 600;">A+ 3800</span> /
+              <span style="color: red; font-weight: 600;">B- 3300</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="iphone_check" class="page" style="display:none;">
+  <div class="card" style="max-width: 800px; margin: 40px auto; background: #fff; padding: 20px;">
+    <h2>Схема перевірки</h2>
+    <ol>
+      <li>Уточнити у клієнта, що змінювалося в телефоні, чи був він у ремонті?</li>
+      <li>Перевірка телефона на розшук за базою <a href="https://wanted.mvs.gov.ua/searchthing">МВД</a></li>
+      <li>Підключення телефона до програми <b>3uTools</b></li>
+      <li>Оцінка зовнішнього стану (ГНУТОСТЬ КОРПУСА, сколы, подряпины, вмятины, тріщини)</li>
+      <li>Перевірка наявності болтів і цілісність сіточок динаміків (верхніх і нижніх)</li>
+      <li>Перевірка на наявність люфту екрана з корпусом</li>
+      <li>Перевірка екрана на оригінальність (товщина рамок, колір матриці повинен бути чорним, не сірим)</li>
+      <li>Перевірка працездатності всіх кнопок (на залипання, западання)</li>
+      <li>Вставляємо SIM-карту і слідкуємо, щоб не пропадала мережа</li>
+      <li>Включаємо дисплей на максимальну яскравість і перевіряємо на мертві зони</li>
+      <li>Перевірка дисплея на працездатність True Tone</li>
+      <li>Перевірка дисплея на плями, засвічення на білому та чорному фоні</li>
+      <li>Перевірка дисплея під кутом (щоб не було плям)</li>
+      <li>Перевірка камери (основної, фронтальної) на наявність плям у портретному режимі та пилу</li>
+      <li>Перевірка мікрофонів камери (основної, фронтальної, запис пробного відео зі звуком)</li>
+      <li>Перевірка мікрофона диктофона та перевірка компаса</li>
+      <li>Перевірка навушників (вставляємо навушники і перевіряємо працездатність)</li>
+      <li>Перевірка вібрації (Повзунок включення беззвучного режиму)</li>
+      <li>Перевірка роз'ємів навушників і зарядки (підключаємо навушники і зарядку)</li>
+      <li>Перевірка стану АКБ (щоб не було прочерка)</li>
+      <li>Працездатність Wi-Fi та Bluetooth</li>
+      <li>Перевірка функції Touch ID/Face ID</li>
+      <li>Тестовий дзвінок, перевіряємо на гучному та звичайному зв'язку, датчик затемнення</li>
+      <li>Перевірка функції Apple Pay</li>
+      <li>Перевірити звук (звучання верхнього та нижнього динаміка)</li>
+    </ol>
+    <div class="warning" style="margin-top: 20px; color: red; font-weight: bold;">
+      При покупці телефона клієнта обов'язково робимо скидання контенту та налаштувань і активуємо через SIM-карту!
+    </div>
+  </div>
+</div>
+
+<div id="pencil" class="page" style="display:none;">
+  <div class="card" style="max-width: 800px; margin: 40px auto; background: #fff; padding: 20px;">
+    <h2>Підібрати Pencil</h2>
+    <div class="details" style="display:block; margin-top: 12px;">
+      <p><b>Pencil 1</b></p>
+      <p>Базовою моделлю, яка підключається через роз’єм Lightning.</p>
+      <ul>
+        <li>iPad mini (5-го покоління)</li>
+        <li>iPad (6-го, 7-го, 8-го та 9-го покоління)</li>
+        <li>iPad (10-го покоління)*</li>
+        <li>iPad Air (3-го покоління)</li>
+        <li>iPad Pro 12,9 дюйма (1-го й 2-го покоління)</li>
+        <li>iPad Pro 10,5 дюйма</li>
+        <li>iPad Pro 9,7 дюйма</li>
+      </ul>
+    </div>
+    <div class="details" style="display:block; margin-top: 12px;">
+      <p><b>Pencil 2</b></p>
+      <p>Підтримує бездротове підключення та заряджання, а також функцію подвійного дотику для зміни інструментів.</p>
+      <ul>
+        <li>iPad mini (6-го покоління)</li>
+        <li>iPad Air (4-го або 5-го покоління)</li>
+        <li>iPad Pro 12,9 дюйма (3-го, 4-го, 5-го або 6-го покоління)</li>
+        <li>iPad Pro 11 дюймів (1-го, 2-го, 3-го або 4-го покоління)</li>
+      </ul>
+    </div>
+    <div class="details" style="display:block; margin-top: 12px;">
+      <p><b>Pencil Type-C</b></p>
+      <p>Підключення через USB-C (немає магнітного кріплення чи бездротової зарядки).</p>
+      <p>Чутливість до натиску та нахилу для точного малювання та письма.</p>
+      <ul>
+        <li>iPad Pro 13 дюймів (чип M4)</li>
+        <li>iPad Pro 11 дюймів (чип M4)</li>
+        <li>iPad Pro 11 дюймів (1-го, 2-го, 3-го або 4-го покоління)</li>
+        <li>iPad Pro 12,9 дюйма (3-го, 4-го, 5-го або 6-го покоління)</li>
+        <li>iPad Air 13 дюймів (чип M2)</li>
+        <li>iPad Air 11 дюймів (чип M2)</li>
+        <li>iPad Air (4-го або 5-го покоління)</li>
+        <li>iPad (10-го покоління)</li>
+        <li>iPad mini (A17 Pro)</li>
+        <li>iPad mini (6-го покоління)</li>
+      </ul>
+    </div>
+    <div class="details" style="display:block; margin-top: 12px;">
+      <p><b>Pencil Pro</b></p>
+      <p>Тактильний зворотний зв’язок, обертання, стискання та інтеграцію з «Локатором» для легкого пошуку пристрою.</p>
+      <ul>
+        <li>iPad Pro 13 дюймів (чип M4)</li>
+        <li>iPad Pro 11 дюймів (чип M4)</li>
+        <li>iPad Air 13 дюймів (чип M2)</li>
+        <li>iPad Air 11 дюймів (чип M2)</li>
+        <li>iPad mini (A17 Pro)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script src="scripts.js"></script>
+</body>
+</html>
